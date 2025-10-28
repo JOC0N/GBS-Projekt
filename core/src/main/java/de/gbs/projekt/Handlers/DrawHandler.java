@@ -24,13 +24,13 @@ public class DrawHandler {
 
     public DrawHandler() {
         batch = new SpriteBatch();
-        viewport = new FitViewport(80,60);
+        viewport = new FitViewport(80, 60);
 
         //Resources
         logo = new Texture("libgdx.png");
     }
 
-    public void run(){
+    public void run() {
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
@@ -46,7 +46,7 @@ public class DrawHandler {
 
     }
 
-    public void disposeAll() {
+    public void disposeManager() {
         batch.dispose();
         logo.dispose();
     }
