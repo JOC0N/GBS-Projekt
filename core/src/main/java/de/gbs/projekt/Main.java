@@ -15,19 +15,17 @@ import de.gbs.projekt.Handlers.LogicHandler;
 public class Main extends ApplicationAdapter {
 
 
-    public final InputHandler inputHandler = new InputHandler();
-    public final LogicHandler logicHandler = new LogicHandler();
-    public final DrawHandler drawHandler = new DrawHandler();
+    public InputHandler inputHandler;
+    public LogicHandler logicHandler;
+    public DrawHandler drawHandler;
 
-    @Override
-    public void resize(int width, int height) {
-        drawHandler.getViewport().update(width, height, true); // true centers the camera
-    }
 
 
     @Override
     public void create() {
-        //Vorbereitungen in den Konstruktoren der Handler
+        inputHandler = new InputHandler();
+        logicHandler = new LogicHandler();
+        drawHandler = new DrawHandler();
     }
 
     @Override
@@ -37,6 +35,11 @@ public class Main extends ApplicationAdapter {
         inputHandler.run();
         logicHandler.run();
         drawHandler.run();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        drawHandler.getViewport().update(width, height, true); // true centers the camera
     }
 
     @Override
