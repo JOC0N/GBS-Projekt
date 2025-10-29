@@ -1,62 +1,47 @@
 package de.gbs.projekt.Handlers;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import de.gbs.projekt.managers.GameObjectManager;
+import de.gbs.projekt.objects.Player;
 
 public class DrawHandler {
-
-    private final SpriteBatch batch;
-
+    private SpriteBatch batch;
     private OrthographicCamera camera;
-    private final FitViewport viewport;
-    private final float worldWidth = 80f;
-    private final float worldHeight = 45f;
+    private FitViewport viewport;
 
-
-
-    private final Texture logo;
-
-    public Texture getLogo() {
-        return logo;
+    public DrawHandler() {
+        camera = new OrthographicCamera();
+        viewport = new FitViewport(80, 45, camera);
     }
 
+    public void create() {
+        batch = new SpriteBatch();
+    }
+
+    public void run(GameObjectManager objectManager) {
+        Player player = objectManager.getPlayer(); // Annahme: Es gibt eine Methode getPlayer()
+        if (player != null) {
+            camera.position.set(player.getX() + player.getWidth() / 2,
+                player.getY() + player.getHeight() / 2,
+                0);
+            camera.update();
+        }
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+        batch.begin();
+
+        // Zeichne alle GameObjects
+        objectManager.render(batch);
+
+        batch.end();
+    }
 
     public FitViewport getViewport() {
         return viewport;
     }
 
-    public SpriteBatch getBatch() {
-        return batch;
-    }
-
-    public DrawHandler() {
-        batch = new SpriteBatch();
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(worldWidth, worldHeight, camera);
-
-        //Resources
-        logo = new Texture("libgdx.png");
-    }
-
-    public void run() {
-        viewport.apply();
-        batch.setProjectionMatrix(viewport.getCamera().combined);
-        batch.begin();
-
-
-
-        batch.draw(logo, worldWidth/2, worldHeight/2, 1, 1);
-        batch.end();
-    }
-
     public void dispose() {
-
-    }
-
-    public void disposeManager() {
-        batch.dispose();
-        logo.dispose();
+        if (batch != null) batch.dispose();
     }
 }
