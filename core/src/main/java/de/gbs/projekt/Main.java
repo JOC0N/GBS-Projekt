@@ -3,6 +3,7 @@ package de.gbs.projekt;
 
 import com.badlogic.gdx.ApplicationAdapter;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import de.gbs.projekt.Handlers.DrawHandler;
@@ -29,19 +30,18 @@ public class Main extends ApplicationAdapter {
         logicHandler = new LogicHandler();
         drawHandler = new DrawHandler();
 
-
-
         logicHandler.setObjectManager(objectManager);
 
-        Player player = new Player(10, 10);
+        Player player = new Player(1, 1);
         objectManager.addObject(player);
+        inputHandler.setPlayer(player);
 
 
     }
 
     @Override
     public void render() {
-        ScreenUtils.clear(255, 0, 0, 1);
+        ScreenUtils.clear(0.5f, 0.5f, 0.5f, 1);
 
         // Input verarbeiten
         inputHandler.run();
@@ -54,6 +54,8 @@ public class Main extends ApplicationAdapter {
 
         // Objekte zeichnen
         drawHandler.run(objectManager);
+
+
     }
 
     @Override

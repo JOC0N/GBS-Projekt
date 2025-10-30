@@ -17,6 +17,7 @@ public abstract class GameObject {
     }
 
     public abstract void update(float delta);
+
     public abstract void render(SpriteBatch batch);
 
     public Rectangle getBounds() {

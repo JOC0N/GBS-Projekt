@@ -3,6 +3,7 @@ package de.gbs.projekt.Handlers;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.GameObject;
 import de.gbs.projekt.objects.Player;
@@ -29,6 +30,14 @@ public class DrawHandler {
         }
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
+
+        Texture block = new Texture("floor.png");
+        for (int wx = 0; wx < 1010; wx++) {
+            for (int wy = 0; wy < 1010; wy++) {
+                batch.draw(block, wx, wy, 1, 1);
+            }
+        }
+
 
         // Zeichne alle GameObjects
         objectManager.render(batch);
