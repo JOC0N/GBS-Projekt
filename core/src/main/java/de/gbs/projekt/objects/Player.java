@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Player extends GameObject {
     private Texture texture;
 
+    public Texture getTexture() {
+        return texture;
+    }
+
     public Player(float x, float y) {
         super(x, y, 1, 1);
         texture = new Texture("player.png");
@@ -14,7 +18,7 @@ public class Player extends GameObject {
     @Override
     public void update(float delta) {
         // Spieler-Logik aktualisieren (z. B. Bewegung)
-        x = x +1;
+        x = x +1 * delta;
     }
 
     @Override

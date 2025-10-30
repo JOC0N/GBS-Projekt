@@ -29,13 +29,11 @@ public class Main extends ApplicationAdapter {
         logicHandler = new LogicHandler();
         drawHandler = new DrawHandler();
 
-
-
         logicHandler.setObjectManager(objectManager);
 
         Player player = new Player(10, 10);
         objectManager.addObject(player);
-
+        inputHandler.setPlayer(player);
 
     }
 

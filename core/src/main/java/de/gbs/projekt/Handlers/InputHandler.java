@@ -13,7 +13,9 @@ public class InputHandler {
     }
 
     public void run() {
-        if (player == null) return;
+        if (player == null) {
+            return;
+        };
 
 
         float velocityX = 0;
@@ -37,6 +39,7 @@ public class InputHandler {
             velocityX *= 0.7071F; // 1 / sqrt(2)
             velocityY *= 0.7071F;
         }
+
 
         player.setX(player.getX() + velocityX * speed * Gdx.graphics.getDeltaTime());
         player.setY(player.getY() + velocityY * speed * Gdx.graphics.getDeltaTime());

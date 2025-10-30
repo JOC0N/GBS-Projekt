@@ -31,7 +31,9 @@ public class GameObjectManager {
 
     // Zeichne alle Objekte
     public void render(SpriteBatch batch) {
-
+        for (GameObject obj : objects) {
+            obj.render(batch);
+        }
     }
 
     // Gib alle Ressourcen frei

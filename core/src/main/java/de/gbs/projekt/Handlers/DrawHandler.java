@@ -32,7 +32,6 @@ public class DrawHandler {
 
         // Zeichne alle GameObjects
         objectManager.render(batch);
-
         batch.end();
     }
 
