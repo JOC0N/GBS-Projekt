@@ -23,21 +23,18 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+        objectManager = new GameObjectManager();
+
         inputHandler = new InputHandler();
         logicHandler = new LogicHandler();
         drawHandler = new DrawHandler();
 
-        drawHandler.create();
 
-        objectManager = new GameObjectManager();
 
         logicHandler.setObjectManager(objectManager);
 
         Player player = new Player(10, 10);
         objectManager.addObject(player);
-
-        inputHandler.setPlayer(player);
-
 
 
     }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import de.gbs.projekt.managers.GameObjectManager;
+import de.gbs.projekt.objects.GameObject;
 import de.gbs.projekt.objects.Player;
 
 public class DrawHandler {
@@ -14,14 +15,12 @@ public class DrawHandler {
     public DrawHandler() {
         camera = new OrthographicCamera();
         viewport = new FitViewport(80, 45, camera);
-    }
-
-    public void create() {
         batch = new SpriteBatch();
     }
 
+
     public void run(GameObjectManager objectManager) {
-        Player player = objectManager.getPlayer(); // Annahme: Es gibt eine Methode getPlayer()
+        Player player = objectManager.getPlayer();
         if (player != null) {
             camera.position.set(player.getX() + player.getWidth() / 2,
                 player.getY() + player.getHeight() / 2,
@@ -44,4 +43,5 @@ public class DrawHandler {
     public void dispose() {
         if (batch != null) batch.dispose();
     }
+
 }

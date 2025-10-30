@@ -15,6 +15,7 @@ public class InputHandler {
     public void run() {
         if (player == null) return;
 
+
         float velocityX = 0;
         float velocityY = 0;
 

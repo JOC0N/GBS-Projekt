@@ -6,7 +6,7 @@ import de.gbs.projekt.objects.GameObject;
 import de.gbs.projekt.objects.Player;
 
 public class GameObjectManager {
-    private Array<GameObject> objects;
+    private final Array<GameObject> objects;
 
     public GameObjectManager() {
         objects = new Array<>();
@@ -31,9 +31,7 @@ public class GameObjectManager {
 
     // Zeichne alle Objekte
     public void render(SpriteBatch batch) {
-        for (GameObject obj : objects) {
-            obj.render(batch);
-        }
+
     }
 
     // Gib alle Ressourcen frei
@@ -55,6 +53,14 @@ public class GameObjectManager {
     }
 
     public Player getPlayer() {
-        return objects.first();
+        for (GameObject obj : objects) {
+            if (obj instanceof Player) {
+                return (Player) obj;
+            }
+        }
+        return null;
     }
+
+
+
 }
