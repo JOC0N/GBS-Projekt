@@ -1,6 +1,7 @@
 package de.gbs.projekt.Handlers;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
@@ -37,7 +38,6 @@ public class DrawHandler {
                 batch.draw(block, wx, wy, 1, 1);
             }
         }
-
 
         // Zeichne alle GameObjects
         objectManager.render(batch);
