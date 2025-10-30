@@ -14,6 +14,7 @@ public class Player extends GameObject {
     @Override
     public void update(float delta) {
         // Spieler-Logik aktualisieren (z. B. Bewegung)
+        x = x +1;
     }
 
     @Override
