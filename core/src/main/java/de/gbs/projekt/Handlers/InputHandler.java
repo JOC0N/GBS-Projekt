@@ -6,7 +6,7 @@ import de.gbs.projekt.objects.Player;
 
 public class InputHandler {
     private Player player;
-    private float speed = 200; // Bewegungsgeschwindigkeit in Pixeln pro Sekunde
+    private float speed = 20; // Bewegungsgeschwindigkeit in Pixeln pro Sekunde
 
     public void setPlayer(Player player) {
         this.player = player;
@@ -15,7 +15,8 @@ public class InputHandler {
     public void run() {
         if (player == null) {
             return;
-        };
+        }
+        ;
 
 
         float velocityX = 0;
