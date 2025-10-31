@@ -29,11 +29,18 @@ public class Main extends ApplicationAdapter {
         inputHandler = new InputHandler();
         logicHandler = new LogicHandler();
         drawHandler = new DrawHandler();
+        inputHandler.setLogicHandler(logicHandler);
 
         logicHandler.setObjectManager(objectManager);
+        logicHandler.setDrawHandler(drawHandler);
+        logicHandler.setInputHandler(inputHandler);
 
         Player player = new Player(1, 1);
         objectManager.addObject(player);
+
+        Player player2 = new Player(10, 1);
+        objectManager.addObject(player2);
+
         inputHandler.setPlayer(player);
 
 
