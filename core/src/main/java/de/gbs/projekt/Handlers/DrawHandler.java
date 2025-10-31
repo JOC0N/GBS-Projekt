@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import de.gbs.projekt.managers.GameObjectManager;
@@ -64,7 +65,8 @@ public class DrawHandler {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setColor(new Color(1,0,0,0.3f));
             for (GameObject obj : objectManager.getObjects()) {
-                shapeRenderer.rect(obj.getX(), obj.getY(), obj.getWidth(), obj.getHeight());
+                Rectangle bounds = obj.getBounds();
+                shapeRenderer.rect(bounds.x, bounds.y, bounds.getWidth(), bounds.getHeight());
             }
             shapeRenderer.end();
         }

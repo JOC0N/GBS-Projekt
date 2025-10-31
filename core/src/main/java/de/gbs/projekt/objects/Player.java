@@ -10,7 +10,7 @@ public class Player extends GameObject implements Movable {
     private final float speed;
 
     public Player(float x, float y) {
-        super(x, y, 1, 1,2,2);
+        super(x, y, 1, 1,3,3);
         texture = new Texture("player.png");
         speed = 10;
     }
