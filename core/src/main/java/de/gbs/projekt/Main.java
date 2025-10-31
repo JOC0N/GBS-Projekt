@@ -29,11 +29,10 @@ public class Main extends ApplicationAdapter {
         inputHandler = new InputHandler();
         logicHandler = new LogicHandler();
         drawHandler = new DrawHandler();
-        inputHandler.setLogicHandler(logicHandler);
 
-        logicHandler.setObjectManager(objectManager);
+        inputHandler.setLogicHandler(logicHandler);
         logicHandler.setDrawHandler(drawHandler);
-        logicHandler.setInputHandler(inputHandler);
+        logicHandler.setObjectManager(objectManager);
 
         Player player = new Player(1, 1);
         objectManager.addObject(player);
@@ -42,7 +41,6 @@ public class Main extends ApplicationAdapter {
         objectManager.addObject(player2);
 
         inputHandler.setPlayer(player);
-
 
     }
 

@@ -5,7 +5,6 @@ import de.gbs.projekt.managers.GameObjectManager;
 public class LogicHandler {
     private GameObjectManager objectManager;
     private DrawHandler drawHandler;
-    private InputHandler inputHandler;
 
     public void setObjectManager(GameObjectManager objectManager) {
         this.objectManager = objectManager;
@@ -13,10 +12,6 @@ public class LogicHandler {
     public void setDrawHandler(DrawHandler drawHandler) {
         this.drawHandler = drawHandler;
     }
-    public void setInputHandler(InputHandler inputHandler) {
-        this.inputHandler = inputHandler;
-    }
-
 
     public void run() {
         // Beispiel: Kollisionen prüfen
