@@ -52,4 +52,32 @@ public class Player extends GameObject implements Movable {
     public void move(float x, float y) {
 
     }
+
+    @Override
+    public void setVelocityX(float velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    @Override
+    public void setVelocityY(float velocityY) {
+        this.velocityY = velocityY;
+    }
+
+    @Override
+    public float getVelocityX() {
+        return velocityX;
+    }
+
+    @Override
+    public float getVelocityY() {
+        return velocityY;
+    }
+
+    @Override
+    public float[] getVelocity() {
+        float[] velocity = new float[2];
+        velocity[0] = velocityX;
+        velocity[1] = velocityY;
+        return velocity;
+    }
 }
