@@ -1,29 +1,34 @@
 package de.gbs.projekt.objects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.gbs.projekt.objects.components.Movable;
 
 public class Player extends GameObject implements Movable {
     private Texture texture;
-
+    private final float speed;
 
     public Player(float x, float y) {
-        super(x, y, 1, 1);
+        super(x, y, 1, 1,2,2);
         texture = new Texture("player.png");
-
+        speed = 10;
     }
 
     @Override
     public void update(float delta) {
         this.getBounds();
-        // Spieler-Logik aktualisieren (z. B. Bewegung)
+        if (velocityX != 0 && velocityY != 0) {
+            velocityX *= 0.7071F; // 1 / sqrt(2)
+            velocityY *= 0.7071F;
+        }
+        this.move(x + velocityX * speed * delta , y + velocityY * speed * delta);
+
     }
 
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y, width, height);
-
     }
 
     @Override
@@ -31,26 +36,10 @@ public class Player extends GameObject implements Movable {
         texture.dispose();
     }
 
-    // Getter und Setter für x und y
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
     @Override
     public void move(float x, float y) {
-
+        this.setX(x);
+        this.setY(y);
     }
 
     @Override

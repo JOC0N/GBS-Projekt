@@ -7,15 +7,21 @@ public abstract class GameObject {
     protected float x, y;
     protected float velocityX, velocityY;
     protected float width, height;
+    protected float hitboxWidth, hitboxHeight;
     protected Rectangle bounds;
 
-    public GameObject(float x, float y, float width, float height) {
+    public GameObject(float x, float y, float width, float height, float hitboxWidth, float hitboxHeight) {
         this.x = x;
         this.y = y;
         this.velocityX = 0;
         this.velocityY = 0;
+
         this.width = width;
         this.height = height;
+
+        this.hitboxWidth = hitboxWidth;
+        this.hitboxHeight = hitboxHeight;
+
         this.bounds = new Rectangle(x, y, width, height);
     }
 
@@ -46,6 +52,14 @@ public abstract class GameObject {
 
     public float getY() {
         return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    public void setX(float x) {
+        this.x = x;
     }
 
 }
