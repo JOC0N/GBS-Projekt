@@ -4,7 +4,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class GameObject {
-    protected float x, y;
+    protected float x;
+    protected float y;
+
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
     protected float width, height;
     protected Rectangle bounds;
 

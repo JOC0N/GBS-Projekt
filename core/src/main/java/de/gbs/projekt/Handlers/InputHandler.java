@@ -5,13 +5,19 @@ import com.badlogic.gdx.Input;
 import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.Player;
 
+import java.util.HashMap;
+
 public class InputHandler {
     private LogicHandler logicHandler;
     private Player player;
-    private float speed = 10; // Bewegungsgeschwindigkeit in Pixeln pro Sekunde
+    private float speed;
+    private HashMap<String,Boolean> keys;
+    private boolean[] toggle;
 
     public void setLogicHandler(LogicHandler logicHandler) {
+        speed = 10;
         this.logicHandler = logicHandler;
+        keys = new HashMap<>();
     }
 
     public void setPlayer(Player player) {
@@ -20,25 +26,36 @@ public class InputHandler {
 
     public void run() {
 
+        keys.put("Debugger", Gdx.input.isKeyPressed(Input.Keys.HOME));
+        keys.put("Pause-Menu", Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
+
+        keys.put("Up", Gdx.input.isKeyPressed(Input.Keys.UP));
+        keys.put("Down", Gdx.input.isKeyPressed(Input.Keys.DOWN));
+        keys.put("Left", Gdx.input.isKeyPressed(Input.Keys.LEFT));
+        keys.put("Right", Gdx.input.isKeyPressed(Input.Keys.RIGHT));
+
+        keys.put("Interact", Gdx.input.isKeyPressed(Input.Keys.SPACE));
+
         if (player == null) return;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.HOME)) {
+        if (keys.get("Debugger")) {
             logicHandler.debugger();
+
         }
 
         float velocityX = 0;
         float velocityY = 0;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (keys.get("Left")) {
             velocityX = -1;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (keys.get("Right")) {
             velocityX = 1;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if (keys.get("Up")) {
             velocityY = 1;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (keys.get("Down")) {
             velocityY = -1;
         }
         // Normalisierung für diagonale Bewegung (optional)

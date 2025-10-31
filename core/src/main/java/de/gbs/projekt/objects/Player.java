@@ -2,8 +2,9 @@ package de.gbs.projekt.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import de.gbs.projekt.objects.components.Movable;
 
-public class Player extends GameObject {
+public class Player extends GameObject implements Movable {
     private Texture texture;
 
 
@@ -47,4 +48,8 @@ public class Player extends GameObject {
         this.y = y;
     }
 
+    @Override
+    public void move(float x, float y) {
+
+    }
 }

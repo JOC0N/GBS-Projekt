@@ -34,6 +34,7 @@ public class Main extends ApplicationAdapter {
         logicHandler.setDrawHandler(drawHandler);
         logicHandler.setObjectManager(objectManager);
 
+        //for now first game object must be a player
         Player player = new Player(1, 1);
         objectManager.addObject(player);
 

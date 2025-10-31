@@ -63,7 +63,9 @@ public class DrawHandler {
             shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setColor(new Color(1,0,0,0.3f));
-            shapeRenderer.rect(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+            for (GameObject obj : objectManager.getObjects()) {
+                shapeRenderer.rect(obj.getX(), obj.getY(), obj.getWidth(), obj.getHeight());
+            }
             shapeRenderer.end();
         }
 
