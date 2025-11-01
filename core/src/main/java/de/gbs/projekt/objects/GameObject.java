@@ -41,7 +41,8 @@ public abstract class GameObject {
     public abstract void render(SpriteBatch batch);
 
     public Rectangle getBounds() {
-        bounds.setPosition((x + width / 2) - hitboxWidth / 2, (y + height / 2) - hitboxHeight / 2);
+        bounds.setPosition((x + width / 2) - hitboxWidth / 2,
+            (y + height / 2) - hitboxHeight / 2);
         return bounds;
     }
 

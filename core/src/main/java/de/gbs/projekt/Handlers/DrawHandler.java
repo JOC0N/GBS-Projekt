@@ -63,7 +63,7 @@ public class DrawHandler {
             Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.setColor(new Color(1,0,0,0.3f));
+            shapeRenderer.setColor(new Color(1,0,0,0.5f));
             for (GameObject obj : objectManager.getObjects()) {
                 Rectangle bounds = obj.getBounds();
                 shapeRenderer.rect(bounds.x, bounds.y, bounds.getWidth(), bounds.getHeight());
