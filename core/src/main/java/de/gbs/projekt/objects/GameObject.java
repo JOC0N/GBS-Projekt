@@ -5,9 +5,28 @@ import com.badlogic.gdx.math.Rectangle;
 
 public abstract class GameObject {
     protected float x, y;
+    protected float centerPointX, centerPointY;
     protected float velocityX, velocityY;
     protected float width, height;
     protected float hitboxWidth, hitboxHeight;
+
+    public float getDetectionHeight() {
+        return detectionHeight;
+    }
+
+    public float getCenterPointX() {
+        return centerPointX;
+    }
+
+    public float getCenterPointY() {
+        return centerPointY;
+    }
+
+    public float getDetectionWidth() {
+        return detectionWidth;
+    }
+
+    protected float detectionWidth, detectionHeight;
     protected Rectangle bounds;
 
     public float getHitboxWidth() {
@@ -18,21 +37,31 @@ public abstract class GameObject {
         return hitboxHeight;
     }
 
-    public GameObject(float x, float y, float width, float height, float hitboxWidth, float hitboxHeight) {
+    public GameObject(float x, float y,
+                      float width, float height,
+                      float hitboxWidth, float hitboxHeight,
+                      float detectionWidth, float detectionHeight) {
         this.x = x;
         this.y = y;
+
         this.velocityX = 0;
         this.velocityY = 0;
 
         this.width = width;
         this.height = height;
 
+        this.centerPointX =x + this.width/2;
+        this.centerPointY =y + this.height/2;
+
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;
 
+        this.detectionWidth = detectionWidth;
+        this.detectionHeight = detectionHeight;
+
         this.bounds = new Rectangle(
-            (this.x + this.width / 2) - this.hitboxWidth / 2,
-            (this.y + this.height / 2) - this.hitboxHeight / 2,
+            centerPointX - this.hitboxWidth / 2,
+            centerPointY - this.hitboxHeight / 2,
             this.hitboxWidth, this.hitboxHeight);
     }
 
@@ -41,8 +70,8 @@ public abstract class GameObject {
     public abstract void render(SpriteBatch batch);
 
     public Rectangle getBounds() {
-        bounds.setPosition((x + width / 2) - hitboxWidth / 2,
-            (y + height / 2) - hitboxHeight / 2);
+        bounds.setPosition(centerPointX - hitboxWidth / 2,
+            centerPointY - hitboxHeight / 2);
         return bounds;
     }
 
