@@ -37,10 +37,6 @@ public class Main extends ApplicationAdapter {
         //for now first game object must be a player
         Player player = new Player(1, 1);
         objectManager.addObject(player);
-
-        Player player2 = new Player(10, 1);
-        objectManager.addObject(player2);
-
         inputHandler.setPlayer(player);
 
     }

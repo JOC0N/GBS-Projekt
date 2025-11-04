@@ -67,10 +67,6 @@ public class DrawHandler {
             for (GameObject obj : objectManager.getObjects()) {
                 Rectangle bounds = obj.getBounds();
                 shapeRenderer.rect(bounds.x, bounds.y, bounds.getWidth(), bounds.getHeight());
-                shapeRenderer.rect(
-                    bounds.x, bounds.y,
-                    bounds.x - obj.getDetectionWidth() / 2,
-                    bounds.y - obj.getDetectionHeight() / 2);
             }
             shapeRenderer.end();
         }

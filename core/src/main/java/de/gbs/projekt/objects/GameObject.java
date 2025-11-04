@@ -9,33 +9,10 @@ public abstract class GameObject {
     protected float velocityX, velocityY;
     protected float width, height;
     protected float hitboxWidth, hitboxHeight;
-
-    public float getDetectionHeight() {
-        return detectionHeight;
-    }
-
-    public float getCenterPointX() {
-        return centerPointX;
-    }
-
-    public float getCenterPointY() {
-        return centerPointY;
-    }
-
-    public float getDetectionWidth() {
-        return detectionWidth;
-    }
-
     protected float detectionWidth, detectionHeight;
+
     protected Rectangle bounds;
-
-    public float getHitboxWidth() {
-        return hitboxWidth;
-    }
-
-    public float getHitboxHeight() {
-        return hitboxHeight;
-    }
+    protected Rectangle boundsd;
 
     public GameObject(float x, float y,
                       float width, float height,
@@ -63,6 +40,7 @@ public abstract class GameObject {
             centerPointX - this.hitboxWidth / 2,
             centerPointY - this.hitboxHeight / 2,
             this.hitboxWidth, this.hitboxHeight);
+
     }
 
     public abstract void update(float delta);
@@ -97,10 +75,12 @@ public abstract class GameObject {
 
     public void setY(float y) {
         this.y = y;
+        this.centerPointY = y + this.height / 2;
     }
 
     public void setX(float x) {
         this.x = x;
+        this.centerPointX = x + this.width / 2;
     }
 
 }
