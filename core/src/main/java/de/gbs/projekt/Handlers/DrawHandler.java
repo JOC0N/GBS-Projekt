@@ -29,6 +29,7 @@ public class DrawHandler {
 
         //Alpha Renderer für debugging hitboxes
         shapeRenderer = new ShapeRenderer();
+        //Font for debugging
         font = new BitmapFont();
         font.getData().setScale(0.2f);
 
@@ -38,9 +39,7 @@ public class DrawHandler {
     public void run(GameObjectManager objectManager) {
         Player player = objectManager.getPlayer();
         if (player != null) {
-            camera.position.set(player.getX() + player.getWidth() / 2,
-                player.getY() + player.getHeight() / 2,
-                0);
+            camera.position.set(player.getCenterPointX(), player.getCenterPointY(),0);
             camera.update();
         }
         batch.setProjectionMatrix(viewport.getCamera().combined);
@@ -53,15 +52,15 @@ public class DrawHandler {
             }
         }
 
-        // Zeichne alle GameObjects
+        // Draw all GameObjects
         objectManager.render(batch);
+
+        //debugger velocity
         if(showSpeed){
             assert player != null;
             font.draw(batch, Float.toString(player.getVelocityX()), player.getX(), player.getY());
 
         }
-
-
         batch.end();
         //hitbox renderer for debugging
         if (showHitbox){

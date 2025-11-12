@@ -84,4 +84,12 @@ public abstract class GameObject {
         this.centerPointX = x + this.width / 2;
     }
 
+    public float getCenterPointY() {
+        return centerPointY;
+    }
+
+    public float getCenterPointX() {
+        return centerPointX;
+    }
+
 }
