@@ -1,6 +1,5 @@
 package de.gbs.projekt.objects;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.gbs.projekt.objects.components.Movable;
@@ -62,11 +61,5 @@ public class Player extends GameObject implements Movable {
         return velocityY;
     }
 
-    @Override
-    public float[] getVelocity() {
-        float[] velocity = new float[2];
-        velocity[0] = velocityX;
-        velocity[1] = velocityY;
-        return velocity;
-    }
+
 }
