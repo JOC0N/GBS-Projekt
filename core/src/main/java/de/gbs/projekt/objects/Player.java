@@ -26,7 +26,7 @@ public class Player extends GameObject implements Movable {
 
             this.move(x + normalizedVelocityX * delta, y + normalizedVelocityY * delta);
         }
-        this.setBoundsH(); // after move()
+        this.setBoundsH(); // after move() for sync hitboxes
     }
 
     @Override
