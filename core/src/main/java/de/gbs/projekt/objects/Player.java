@@ -7,11 +7,15 @@ import de.gbs.projekt.objects.components.Movable;
 public class Player extends GameObject implements Movable {
     private final Texture texture;
     private float speed;
+    private float sprintSpeed;
+    private boolean sprint;
 
     public Player(float x, float y) {
         super(x, y, 1, 1,1,1);
         texture = new Texture("player.png");
         speed = 5;
+        sprintSpeed = 10;
+        sprint = false;
     }
 
     @Override
@@ -36,8 +40,14 @@ public class Player extends GameObject implements Movable {
     public void move(float delta) {
         float velocityLength = (float) Math.sqrt(getVelocityX() * getVelocityX() + getVelocityY() * getVelocityY());
         if (velocityLength > 0) {
-            this.setX(getX() + getVelocityX()/velocityLength * getSpeed() * delta);
-            this.setY(getY() + getVelocityY()/velocityLength * getSpeed() * delta);
+            if(sprint){
+                this.setX(getX() + getVelocityX()/velocityLength * getSprintSpeed() * delta);
+                this.setY(getY() + getVelocityY()/velocityLength * getSprintSpeed() * delta);
+            }else {
+                this.setX(getX() + getVelocityX()/velocityLength * getSpeed() * delta);
+                this.setY(getY() + getVelocityY()/velocityLength * getSpeed() * delta);
+            }
+
         }
     }
 
@@ -49,6 +59,26 @@ public class Player extends GameObject implements Movable {
     @Override
     public float getSpeed() {
         return speed;
+    }
+
+    @Override
+    public void setSprintSpeed(float sprintSpeed) {
+        this.sprintSpeed = sprintSpeed;
+    }
+
+    @Override
+    public float getSprintSpeed() {
+        return sprintSpeed;
+    }
+
+    @Override
+    public void setSprint(boolean sprint) {
+        this.sprint = sprint;
+    }
+
+    @Override
+    public boolean getSprint() {
+        return sprint;
     }
 
     @Override

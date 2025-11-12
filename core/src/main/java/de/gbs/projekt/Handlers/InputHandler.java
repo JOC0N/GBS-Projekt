@@ -41,15 +41,11 @@ public class InputHandler {
             Gdx.app.exit();
         }
 
-        if (keys.get("Sprint")) {
-            player.setSpeed(10);
-        }else {
-            player.setSpeed(5);
-        }
 
-        if (keys.get("Debugger")) {
-            logicHandler.debugger();
-        }
+        player.setSprint(keys.get("Sprint"));
+
+        logicHandler.debugger(keys.get("Debugger"));
+
 
         player.setVelocityX(0);
         player.setVelocityY(0);

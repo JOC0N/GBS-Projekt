@@ -25,10 +25,8 @@ public class LogicHandler {
             }
         }
     }
-    public void debugger(){
-        drawHandler.showHitbox = !drawHandler.showHitbox;
-        drawHandler.showSpeed = !drawHandler.showSpeed;
+    public void debugger(boolean state) {
+        drawHandler.showHitbox = state;
+        drawHandler.showSpeed = state;
     }
-
-
 }
