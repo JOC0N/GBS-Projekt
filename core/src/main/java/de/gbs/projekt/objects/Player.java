@@ -9,18 +9,14 @@ public class Player extends GameObject implements Movable {
     private final float speed;
 
     public Player(float x, float y) {
-        super(x, y, 1, 1,2,2, 3, 3);
+        super(x, y, 1, 1,2,2);
         texture = new Texture("player.png");
         speed = 5;
     }
 
     @Override
     public void update(float delta) {
-        this.getBounds();
-        if (velocityX != 0 && velocityY != 0) {
-            velocityX *= 0.7071F; // 1 / sqrt(2)
-            velocityY *= 0.7071F;
-        }
+        this.setBoundsH();
         this.move(x + velocityX * speed * delta , y + velocityY * speed * delta);
 
     }
@@ -37,6 +33,10 @@ public class Player extends GameObject implements Movable {
 
     @Override
     public void move(float x, float y) {
+        if (velocityX != 0 && velocityY != 0) {
+            velocityX *= 0.7071F; // 1 / sqrt(2)
+            velocityY *= 0.7071F;
+        }
         this.setX(x);
         this.setY(y);
     }

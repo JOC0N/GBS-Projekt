@@ -10,14 +10,15 @@ public abstract class GameObject {
     protected float width, height;
     protected float hitboxWidth, hitboxHeight;
     protected float detectionWidth, detectionHeight;
+    protected float interactionWidth, interactionHeight;
 
-    protected Rectangle bounds;
-    protected Rectangle boundsd;
+    protected Rectangle boundsH;
+    protected Rectangle boundsD;
+    protected Rectangle boundsI;
 
     public GameObject(float x, float y,
                       float width, float height,
-                      float hitboxWidth, float hitboxHeight,
-                      float detectionWidth, float detectionHeight) {
+                      float hitboxWidth, float hitboxHeight) {
         this.x = x;
         this.y = y;
 
@@ -33,10 +34,7 @@ public abstract class GameObject {
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;
 
-        this.detectionWidth = detectionWidth;
-        this.detectionHeight = detectionHeight;
-
-        this.bounds = new Rectangle(
+        this.boundsH = new Rectangle(
             centerPointX - this.hitboxWidth / 2,
             centerPointY - this.hitboxHeight / 2,
             this.hitboxWidth, this.hitboxHeight);
@@ -47,10 +45,13 @@ public abstract class GameObject {
 
     public abstract void render(SpriteBatch batch);
 
-    public Rectangle getBounds() {
-        bounds.setPosition(centerPointX - hitboxWidth / 2,
+    public Rectangle getBoundsH() {
+        return boundsH;
+    }
+
+    public void setBoundsH() {
+        boundsH.setPosition(centerPointX - hitboxWidth / 2,
             centerPointY - hitboxHeight / 2);
-        return bounds;
     }
 
     public void dispose() {

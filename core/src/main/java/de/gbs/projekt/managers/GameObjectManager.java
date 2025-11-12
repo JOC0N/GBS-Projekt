@@ -46,7 +46,7 @@ public class GameObjectManager {
 
     // Prüfe Kollisionen zwischen zwei Objekten
     public boolean checkCollision(GameObject a, GameObject b) {
-        return a.getBounds().overlaps(b.getBounds());
+        return a.getBoundsH().overlaps(b.getBoundsH());
     }
 
     // Gib alle Objekte zurück

@@ -9,12 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.GameObject;
 import de.gbs.projekt.objects.Player;
-
-import java.awt.*;
 
 public class DrawHandler {
     public boolean showHitbox;
@@ -65,7 +62,7 @@ public class DrawHandler {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setColor(new Color(1,0,0,0.5f));
             for (GameObject obj : objectManager.getObjects()) {
-                Rectangle bounds = obj.getBounds();
+                Rectangle bounds = obj.getBoundsH();
                 shapeRenderer.rect(bounds.x, bounds.y, bounds.getWidth(), bounds.getHeight());
             }
             shapeRenderer.end();
