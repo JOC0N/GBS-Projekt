@@ -9,16 +9,24 @@ public class Player extends GameObject implements Movable {
     private final float speed;
 
     public Player(float x, float y) {
-        super(x, y, 1, 1,2,2);
+        super(x, y, 1, 1,1,1);
         texture = new Texture("player.png");
         speed = 5;
     }
 
     @Override
     public void update(float delta) {
-        this.setBoundsH();
-        this.move(x + velocityX * speed * delta , y + velocityY * speed * delta);
+        // 1. Geschwindigkeitsvektor berechnen
+        float velocityLength = (float) Math.sqrt(velocityX * velocityX + velocityY * velocityY);
 
+        // 2. Normalisieren (falls der Vektor nicht null ist)
+        if (velocityLength > 0) {
+            float normalizedVelocityX = (velocityX / velocityLength)*speed;
+            float normalizedVelocityY = (velocityY / velocityLength)*speed;
+
+            this.move(x + normalizedVelocityX * delta, y + normalizedVelocityY * delta);
+        }
+        this.setBoundsH(); // after move()
     }
 
     @Override

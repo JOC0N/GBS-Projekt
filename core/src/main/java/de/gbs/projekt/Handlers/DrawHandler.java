@@ -31,7 +31,7 @@ public class DrawHandler {
         shapeRenderer = new ShapeRenderer();
         //Font for debugging
         font = new BitmapFont();
-        font.getData().setScale(0.2f);
+        font.getData().setScale(0.1f);
 
     }
 
@@ -58,7 +58,10 @@ public class DrawHandler {
         //debugger velocity
         if(showSpeed){
             assert player != null;
-            font.draw(batch, Float.toString(player.getVelocityX()), player.getX(), player.getY());
+            font.draw(batch,
+                "Vel: "
+                + Float.toString(player.getVelocityX()) +" "+ Float.toString(player.getVelocityY()),
+                player.getX(), player.getY());
 
         }
         batch.end();
