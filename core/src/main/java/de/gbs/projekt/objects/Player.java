@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import de.gbs.projekt.objects.components.Movable;
 
 public class Player extends GameObject implements Movable {
-    private Texture texture;
-    private final float speed;
+    private final Texture texture;
+    private float speed;
 
     public Player(float x, float y) {
         super(x, y, 1, 1,1,1);
@@ -16,22 +16,14 @@ public class Player extends GameObject implements Movable {
 
     @Override
     public void update(float delta) {
-        // 1. Geschwindigkeitsvektor berechnen
-        float velocityLength = (float) Math.sqrt(velocityX * velocityX + velocityY * velocityY);
-
-        // 2. Normalisieren (falls der Vektor nicht null ist)
-        if (velocityLength > 0) {
-            float normalizedVelocityX = (velocityX / velocityLength)*speed;
-            float normalizedVelocityY = (velocityY / velocityLength)*speed;
-
-            this.move(x + normalizedVelocityX * delta, y + normalizedVelocityY * delta);
-        }
+        move(delta);
         this.setBoundsH(); // after move() for sync hitboxes
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(texture, x, y, width, height);
+        //draw player
+        batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 
     @Override
@@ -39,10 +31,24 @@ public class Player extends GameObject implements Movable {
         texture.dispose();
     }
 
+
     @Override
-    public void move(float x, float y) {
-        this.setX(x);
-        this.setY(y);
+    public void move(float delta) {
+        float velocityLength = (float) Math.sqrt(getVelocityX() * getVelocityX() + getVelocityY() * getVelocityY());
+        if (velocityLength > 0) {
+            this.setX(getX() + getVelocityX()/velocityLength * getSpeed() * delta);
+            this.setY(getY() + getVelocityY()/velocityLength * getSpeed() * delta);
+        }
+    }
+
+    @Override
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    @Override
+    public float getSpeed() {
+        return speed;
     }
 
     @Override
@@ -64,5 +70,6 @@ public class Player extends GameObject implements Movable {
     public float getVelocityY() {
         return velocityY;
     }
+
 
 }

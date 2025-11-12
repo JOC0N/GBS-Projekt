@@ -27,17 +27,24 @@ public class InputHandler {
         keys.put("Debugger", Gdx.input.isKeyPressed(Input.Keys.HOME));
         keys.put("Quit", Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 
-        keys.put("Up", Gdx.input.isKeyPressed(Input.Keys.UP));
-        keys.put("Down", Gdx.input.isKeyPressed(Input.Keys.DOWN));
-        keys.put("Left", Gdx.input.isKeyPressed(Input.Keys.LEFT));
-        keys.put("Right", Gdx.input.isKeyPressed(Input.Keys.RIGHT));
+        keys.put("Up", Gdx.input.isKeyPressed(Input.Keys.W));
+        keys.put("Down", Gdx.input.isKeyPressed(Input.Keys.S));
+        keys.put("Left", Gdx.input.isKeyPressed(Input.Keys.A));
+        keys.put("Right", Gdx.input.isKeyPressed(Input.Keys.D));
 
         keys.put("Interact", Gdx.input.isKeyPressed(Input.Keys.SPACE));
+        keys.put("Sprint", Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT));
 
         if (player == null) return;
 
         if (keys.get("Quit")) {
             Gdx.app.exit();
+        }
+
+        if (keys.get("Sprint")) {
+            player.setSpeed(10);
+        }else {
+            player.setSpeed(5);
         }
 
         if (keys.get("Debugger")) {
