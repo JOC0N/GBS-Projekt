@@ -33,10 +33,6 @@ public class Player extends GameObject implements Movable {
 
     @Override
     public void move(float x, float y) {
-        if (velocityX != 0 && velocityY != 0) {
-            velocityX *= 0.7071F; // 1 / sqrt(2)
-            velocityY *= 0.7071F;
-        }
         this.setX(x);
         this.setY(y);
     }
@@ -60,6 +56,5 @@ public class Player extends GameObject implements Movable {
     public float getVelocityY() {
         return velocityY;
     }
-
 
 }

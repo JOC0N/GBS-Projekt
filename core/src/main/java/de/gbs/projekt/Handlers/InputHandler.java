@@ -44,6 +44,9 @@ public class InputHandler {
             logicHandler.debugger();
         }
 
+        player.setVelocityX(0);
+        player.setVelocityY(0);
+
         if (keys.get("Left")) {
             player.setVelocityX(-1);
         }

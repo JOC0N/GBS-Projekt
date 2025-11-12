@@ -27,6 +27,7 @@ public class LogicHandler {
     }
     public void debugger(){
         drawHandler.showHitbox = !drawHandler.showHitbox;
+        drawHandler.showSpeed = !drawHandler.showSpeed;
     }
 
 

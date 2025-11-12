@@ -8,4 +8,5 @@ public interface Movable {
     float getVelocityX();
     float getVelocityY();
 
+
 }

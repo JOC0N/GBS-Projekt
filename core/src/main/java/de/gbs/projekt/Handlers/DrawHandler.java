@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,11 +16,12 @@ import de.gbs.projekt.objects.Player;
 
 public class DrawHandler {
     public boolean showHitbox;
+    public boolean showSpeed;
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private FitViewport viewport;
     private ShapeRenderer shapeRenderer;
-
+    private BitmapFont font;
     public DrawHandler() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -27,7 +29,8 @@ public class DrawHandler {
 
         //Alpha Renderer für debugging hitboxes
         shapeRenderer = new ShapeRenderer();
-
+        font = new BitmapFont();
+        font.getData().setScale(0.2f);
 
     }
 
@@ -52,6 +55,12 @@ public class DrawHandler {
 
         // Zeichne alle GameObjects
         objectManager.render(batch);
+        if(showSpeed){
+            assert player != null;
+            font.draw(batch, Float.toString(player.getVelocityX()), player.getX(), player.getY());
+
+        }
+
 
         batch.end();
         //hitbox renderer for debugging
@@ -67,6 +76,7 @@ public class DrawHandler {
             }
             shapeRenderer.end();
         }
+
 
     }
 
