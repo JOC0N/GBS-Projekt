@@ -14,13 +14,12 @@ public class LogicHandler {
     }
 
     public void run() {
-        // Beispiel: Kollisionen prüfen
         for (int i = 0; i < objectManager.getObjects().size; i++) {
             for (int j = i + 1; j < objectManager.getObjects().size; j++) {
                 if (objectManager.checkCollision(
                     objectManager.getObjects().get(i),
                     objectManager.getObjects().get(j))) {
-                    // Kollision behandelt
+                    System.out.println("crazy");
                 }
             }
         }

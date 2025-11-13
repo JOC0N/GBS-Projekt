@@ -19,7 +19,7 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     private Circle boundsI;
 
     public Player(float x, float y, float detectionRadius, float interactionRadius) {
-        super(x, y, 1, 1,1,1);
+        super(x, y, 1, 1,0.5f,1);
         texture = new Texture("textures/player.png");
         speed = 5;
         sprintSpeed = 10;
