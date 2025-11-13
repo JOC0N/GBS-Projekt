@@ -27,6 +27,7 @@ public class LogicHandler {
     }
     public void debugger(boolean state) {
         drawHandler.showHitbox = state;
+        drawHandler.showDetectionRadius = state;
         drawHandler.showSpeed = state;
     }
 }

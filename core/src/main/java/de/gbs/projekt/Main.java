@@ -35,7 +35,7 @@ public class Main extends ApplicationAdapter {
         logicHandler.setObjectManager(objectManager);
 
         //for now first game object must be a player
-        Player player = new Player(1, 1, 5);
+        Player player = new Player(1, 1, 4);
         objectManager.addObject(player);
         inputHandler.setPlayer(player);
 

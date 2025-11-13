@@ -8,15 +8,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.GameObject;
 import de.gbs.projekt.objects.Player;
+import de.gbs.projekt.objects.components.Detectable;
 
 public class DrawHandler {
     public boolean showHitbox;
     public boolean showSpeed;
+    public boolean showDetectionRadius;
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private FitViewport viewport;
@@ -66,15 +69,20 @@ public class DrawHandler {
         }
         batch.end();
         //hitbox renderer for debugging
-        if (showHitbox){
+        if (showHitbox && showDetectionRadius){
             Gdx.gl.glEnable(GL20.GL_BLEND);
             Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setColor(new Color(1,0,0,0.5f));
             for (GameObject obj : objectManager.getObjects()) {
-                Rectangle bounds = obj.getBoundsH();
-                shapeRenderer.rect(bounds.x, bounds.y, bounds.getWidth(), bounds.getHeight());
+                if (obj instanceof Detectable) {
+                    Circle boundsD =((Detectable) obj).getBoundsD();
+                     shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Detectable) obj).getDetectionRadius());
+                    // System.out.println("Objekt: " + obj.getClass().getSimpleName() +        ", ist Detectable: " + (obj instanceof Detectable));
+                }
+                Rectangle boundsH = obj.getBoundsH();
+                shapeRenderer.rect(boundsH.x, boundsH.y, boundsH.getWidth(), boundsH.getHeight());
             }
             shapeRenderer.end();
         }
