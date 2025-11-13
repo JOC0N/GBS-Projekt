@@ -2,20 +2,26 @@ package de.gbs.projekt.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
+import de.gbs.projekt.objects.components.Detectable;
 import de.gbs.projekt.objects.components.Movable;
 
-public class Player extends GameObject implements Movable {
+public class Player extends GameObject implements Movable, Detectable {
     private final Texture texture;
     private float speed;
     private float sprintSpeed;
     private boolean sprint;
+    private float detectionRadius;
+    private Circle boundsD;
 
-    public Player(float x, float y) {
+
+    public Player(float x, float y, float detectionRadius) {
         super(x, y, 1, 1,1,1);
         texture = new Texture("player.png");
         speed = 5;
         sprintSpeed = 10;
         sprint = false;
+        this.detectionRadius = detectionRadius;
     }
 
     @Override
@@ -102,4 +108,23 @@ public class Player extends GameObject implements Movable {
     }
 
 
+    @Override
+    public float getDetectionRadius() {
+        return detectionRadius;
+    }
+
+    @Override
+    public void setDetectionRadius(float detectionRadius) {
+        this.detectionRadius = detectionRadius;
+    }
+
+    @Override
+    public void setBoundsD(float centerPointX, float centerPointY, float detectionRadius) {
+            boundsD.set(getCenterPointX(), getCenterPointY(), getDetectionRadius());
+    }
+
+    @Override
+    public Circle getBoundsD() {
+        return boundsD;
+    }
 }
