@@ -78,7 +78,7 @@ public class DrawHandler {
             for (GameObject obj : objectManager.getObjects()) {
                 if (obj instanceof Detectable) {
                     Circle boundsD =((Detectable) obj).getBoundsD();
-                     shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Detectable) obj).getDetectionRadius());
+                     shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Detectable) obj).getDetectionRadius(), 64);
                     // System.out.println("Objekt: " + obj.getClass().getSimpleName() +        ", ist Detectable: " + (obj instanceof Detectable));
                 }
                 Rectangle boundsH = obj.getBoundsH();
