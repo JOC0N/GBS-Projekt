@@ -1,6 +1,7 @@
 package de.gbs.projekt.objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
 public abstract class GameObject {
@@ -9,12 +10,8 @@ public abstract class GameObject {
     protected float velocityX, velocityY;
     protected float width, height;
     protected float hitboxWidth, hitboxHeight;
-    protected float detectionWidth, detectionHeight;
-    protected float interactionWidth, interactionHeight;
 
     protected Rectangle boundsH;
-    protected Rectangle boundsD;
-    protected Rectangle boundsI;
 
     public GameObject(float x, float y,
                       float width, float height,

@@ -8,15 +8,20 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.GameObject;
 import de.gbs.projekt.objects.Player;
+import de.gbs.projekt.objects.components.Detectable;
+import de.gbs.projekt.objects.components.Interactable;
 
 public class DrawHandler {
     public boolean showHitbox;
     public boolean showSpeed;
+    public boolean showDetectionRadius;
+    public boolean showInteractionRadius;
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private FitViewport viewport;
@@ -26,15 +31,10 @@ public class DrawHandler {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         viewport = new FitViewport(16, 9, camera);
-
-        //Alpha Renderer für debugging hitboxes
         shapeRenderer = new ShapeRenderer();
-        //Font for debugging
         font = new BitmapFont();
         font.getData().setScale(0.1f);
-
     }
-
 
     public void run(GameObjectManager objectManager) {
         Player player = objectManager.getPlayer();
@@ -44,7 +44,6 @@ public class DrawHandler {
         }
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
-
         Texture block = new Texture("floor.png");
         for (int wx = 0; wx < 1010; wx++) {
             for (int wy = 0; wy < 1010; wy++) {
@@ -52,34 +51,10 @@ public class DrawHandler {
             }
         }
 
-        // Draw all GameObjects
         objectManager.render(batch);
-
-        //debugger velocity
-        if(showSpeed){
-            assert player != null;
-            font.draw(batch,
-                "Vel: "
-                + Float.toString(player.getVelocityX()) +" "+ Float.toString(player.getVelocityY()),
-                player.getX(), player.getY());
-
-        }
+        debugSprites(player);
         batch.end();
-        //hitbox renderer for debugging
-        if (showHitbox){
-            Gdx.gl.glEnable(GL20.GL_BLEND);
-            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-            shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-            shapeRenderer.setColor(new Color(1,0,0,0.5f));
-            for (GameObject obj : objectManager.getObjects()) {
-                Rectangle bounds = obj.getBoundsH();
-                shapeRenderer.rect(bounds.x, bounds.y, bounds.getWidth(), bounds.getHeight());
-            }
-            shapeRenderer.end();
-        }
-
-
+        debugRenderer(objectManager);
     }
 
     public FitViewport getViewport() {
@@ -90,4 +65,40 @@ public class DrawHandler {
         if (batch != null) batch.dispose();
     }
 
+    public void debugSprites(Player player) {
+        if(showSpeed){
+            assert player != null;
+            font.draw(batch,
+                "Vel: "
+                    + Float.toString(player.getVelocityX()) +" "+ Float.toString(player.getVelocityY()),
+                player.getX(), player.getY());
+        }
+    }
+
+    public void debugRenderer(GameObjectManager objectManager) {
+        if (showHitbox && showDetectionRadius && showInteractionRadius){
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(new Color(1,0,0,0.5f));
+            for (GameObject obj : objectManager.getObjects()) {
+                if (obj instanceof Interactable) {
+                    Circle boundsI =((Interactable) obj).getBoundsI();
+                    shapeRenderer.setColor(new Color(0,0,1,0.5f));
+                    shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Interactable) obj).getInteractionRadius(), 64);
+                }
+                if (obj instanceof Detectable) {
+                    Circle boundsD =((Detectable) obj).getBoundsD();
+                    shapeRenderer.setColor(new Color(0,1,0,0.5f));
+                    shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Detectable) obj).getDetectionRadius(), 64);
+                    // System.out.println("Objekt: " + obj.getClass().getSimpleName() +        ", ist Detectable: " + (obj instanceof Detectable));
+                }
+                Rectangle boundsH = obj.getBoundsH();
+                shapeRenderer.setColor(new Color(1,0,0,0.5f));
+                shapeRenderer.rect(boundsH.x, boundsH.y, boundsH.getWidth(), boundsH.getHeight());
+            }
+            shapeRenderer.end();
+        }
+    }
 }

@@ -2,20 +2,30 @@ package de.gbs.projekt.objects;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Rectangle;
+import de.gbs.projekt.objects.components.Detectable;
+import de.gbs.projekt.objects.components.Interactable;
 import de.gbs.projekt.objects.components.Movable;
 
-public class Player extends GameObject implements Movable {
+public class Player extends GameObject implements Movable, Detectable, Interactable {
     private final Texture texture;
     private float speed;
     private float sprintSpeed;
     private boolean sprint;
+    private float detectionRadius;
+    private float interactionRadius;
+    private Circle boundsD;
+    private Circle boundsI;
 
-    public Player(float x, float y) {
+    public Player(float x, float y, float detectionRadius, float interactionRadius) {
         super(x, y, 1, 1,1,1);
         texture = new Texture("textures/player.png");
         speed = 5;
         sprintSpeed = 10;
         sprint = false;
+        this.detectionRadius = detectionRadius;
+        this.interactionRadius = interactionRadius;
     }
 
     @Override
@@ -102,4 +112,43 @@ public class Player extends GameObject implements Movable {
     }
 
 
+    @Override
+    public float getDetectionRadius() {
+        return detectionRadius;
+    }
+
+    @Override
+    public void setDetectionRadius(float detectionRadius) {
+        this.detectionRadius = detectionRadius;
+    }
+
+    @Override
+    public void setBoundsD(float centerPointX, float centerPointY, float detectionRadius) {
+            boundsD.set(getCenterPointX(), getCenterPointY(), getDetectionRadius());
+    }
+
+    @Override
+    public Circle getBoundsD() {
+        return boundsD;
+    }
+
+    @Override
+    public float getInteractionRadius() {
+        return interactionRadius;
+    }
+
+    @Override
+    public void setInteractionRadius(float interactionRadius) {
+        this.interactionRadius = interactionRadius;
+    }
+
+    @Override
+    public void setBoundsI(float centerPointX, float centerPointY, float interactionRadius) {
+        boundsI.set(getCenterPointX(), getCenterPointY(), getInteractionRadius());
+    }
+
+    @Override
+    public Circle getBoundsI() {
+        return boundsI;
+    }
 }
