@@ -10,10 +10,8 @@ public abstract class GameObject {
     protected float velocityX, velocityY;
     protected float width, height;
     protected float hitboxWidth, hitboxHeight;
-    protected float interactionWidth, interactionHeight;
 
     protected Rectangle boundsH;
-    protected Rectangle boundsI;
 
     public GameObject(float x, float y,
                       float width, float height,

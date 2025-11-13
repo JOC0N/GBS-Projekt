@@ -15,11 +15,13 @@ import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.GameObject;
 import de.gbs.projekt.objects.Player;
 import de.gbs.projekt.objects.components.Detectable;
+import de.gbs.projekt.objects.components.Interactable;
 
 public class DrawHandler {
     public boolean showHitbox;
     public boolean showSpeed;
     public boolean showDetectionRadius;
+    public boolean showInteractionRadius;
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private FitViewport viewport;
@@ -69,19 +71,27 @@ public class DrawHandler {
         }
         batch.end();
         //hitbox renderer for debugging
-        if (showHitbox && showDetectionRadius){
+        if (showHitbox && showDetectionRadius && showInteractionRadius){
             Gdx.gl.glEnable(GL20.GL_BLEND);
             Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setColor(new Color(1,0,0,0.5f));
             for (GameObject obj : objectManager.getObjects()) {
+                if (obj instanceof Interactable) {
+                    Circle boundsI =((Interactable) obj).getBoundsI();
+                    shapeRenderer.setColor(new Color(0,0,1,0.5f));
+                    shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Interactable) obj).getInteractionRadius(), 64);
+                    // System.out.println("Objekt: " + obj.getClass().getSimpleName() +        ", ist Detectable: " + (obj instanceof Detectable));
+                }
                 if (obj instanceof Detectable) {
                     Circle boundsD =((Detectable) obj).getBoundsD();
+                    shapeRenderer.setColor(new Color(0,1,0,0.5f));
                      shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Detectable) obj).getDetectionRadius(), 64);
                     // System.out.println("Objekt: " + obj.getClass().getSimpleName() +        ", ist Detectable: " + (obj instanceof Detectable));
                 }
                 Rectangle boundsH = obj.getBoundsH();
+                shapeRenderer.setColor(new Color(1,0,0,0.5f));
                 shapeRenderer.rect(boundsH.x, boundsH.y, boundsH.getWidth(), boundsH.getHeight());
             }
             shapeRenderer.end();
