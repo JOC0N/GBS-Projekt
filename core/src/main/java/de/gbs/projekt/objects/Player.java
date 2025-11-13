@@ -12,7 +12,7 @@ public class Player extends GameObject implements Movable {
 
     public Player(float x, float y) {
         super(x, y, 1, 1,1,1);
-        texture = new Texture("player.png");
+        texture = new Texture("textures/player.png");
         speed = 5;
         sprintSpeed = 10;
         sprint = false;
