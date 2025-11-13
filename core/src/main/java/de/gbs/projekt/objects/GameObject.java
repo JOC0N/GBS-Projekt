@@ -13,7 +13,7 @@ public abstract class GameObject {
     protected float interactionWidth, interactionHeight;
 
     protected Rectangle boundsH;
-    protected Rectangle boundsD;
+    protected Rectangle boundsD; //hallo
     protected Rectangle boundsI;
 
     public GameObject(float x, float y,
