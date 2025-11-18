@@ -10,6 +10,7 @@ import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.Dummy;
 import de.gbs.projekt.objects.Player;
 
+
 /**
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
