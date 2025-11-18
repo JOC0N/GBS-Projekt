@@ -7,4 +7,5 @@ public interface Interactable {
     public void setInteractionRadius(float interactionRadius);
     public void setBoundsI (float centerPointX, float centerPointY, float interactionRadius);
     public Circle getBoundsI();
+    public void updateBoundsI();
 }

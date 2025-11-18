@@ -26,12 +26,16 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
         sprint = false;
         this.detectionRadius = detectionRadius;
         this.interactionRadius = interactionRadius;
+        this.boundsI = new Circle(this.getCenterPointX(), this.getCenterPointY(), this.getInteractionRadius());
+        this.boundsD = new Circle(this.getCenterPointX(), this.getCenterPointY(), this.getDetectionRadius());
     }
 
     @Override
     public void update(float delta) {
-        move(delta);
+        this.move(delta);
         this.setBoundsH(); // after move() for sync hitboxes
+        this.updateBoundsI();
+        this.updateBoundsD();
     }
 
     @Override
@@ -50,7 +54,7 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     public void move(float delta) {
         float velocityLength = (float) Math.sqrt(getVelocityX() * getVelocityX() + getVelocityY() * getVelocityY());
         if (velocityLength > 0) {
-            if(sprint){
+            if(this.getSprint()){
                 this.setX(getX() + getVelocityX()/velocityLength * getSprintSpeed() * delta);
                 this.setY(getY() + getVelocityY()/velocityLength * getSprintSpeed() * delta);
             }else {
@@ -133,6 +137,11 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     }
 
     @Override
+    public void updateBoundsD() {
+        boundsI.set(getCenterPointX(), getCenterPointY(), getDetectionRadius());
+    }
+
+    @Override
     public float getInteractionRadius() {
         return interactionRadius;
     }
@@ -144,11 +153,16 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
 
     @Override
     public void setBoundsI(float centerPointX, float centerPointY, float interactionRadius) {
-        boundsI.set(getCenterPointX(), getCenterPointY(), getInteractionRadius());
+        boundsI.set(centerPointX, centerPointY, interactionRadius);
     }
 
     @Override
     public Circle getBoundsI() {
         return boundsI;
+    }
+
+    @Override
+    public void updateBoundsI() {
+        boundsD.set(getCenterPointX(), getCenterPointY(), getInteractionRadius());
     }
 }

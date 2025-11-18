@@ -10,6 +10,7 @@ import de.gbs.projekt.Handlers.DrawHandler;
 import de.gbs.projekt.Handlers.InputHandler;
 import de.gbs.projekt.Handlers.LogicHandler;
 import de.gbs.projekt.managers.GameObjectManager;
+import de.gbs.projekt.objects.Dummy;
 import de.gbs.projekt.objects.Player;
 
 /**
@@ -34,12 +35,18 @@ public class Main extends ApplicationAdapter {
         logicHandler.setDrawHandler(drawHandler);
         logicHandler.setObjectManager(objectManager);
 
+
+
         //for now first game object must be a player
         Player player = new Player(10, 1, 4, 1.5f);
         objectManager.addObject(player);
+        inputHandler.setPlayer(player);
+
         Player player2 = new Player(1, 1, 4, 1.5f);
         objectManager.addObject(player2);
-        inputHandler.setPlayer(player);
+
+        Dummy dummy0 = new Dummy(-4,-4);
+        objectManager.addObject(dummy0);
 
     }
 

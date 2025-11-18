@@ -82,20 +82,25 @@ public class DrawHandler {
             shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
             shapeRenderer.setColor(new Color(1,0,0,0.5f));
+
             for (GameObject obj : objectManager.getObjects()) {
+
                 if (obj instanceof Interactable) {
-                    Circle boundsI =((Interactable) obj).getBoundsI();
                     shapeRenderer.setColor(new Color(0,0,1,0.5f));
-                    shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Interactable) obj).getInteractionRadius(), 64);
+                    Circle boundsI =((Interactable) obj).getBoundsI();
+                    shapeRenderer.circle(boundsI.x, boundsI.y, boundsI.radius, 32);
                 }
+
                 if (obj instanceof Detectable) {
-                    Circle boundsD =((Detectable) obj).getBoundsD();
                     shapeRenderer.setColor(new Color(0,1,0,0.5f));
-                    shapeRenderer.circle(obj.getCenterPointX(), obj.getCenterPointY(), ((Detectable) obj).getDetectionRadius(), 64);
+                    Circle boundsD =((Detectable) obj).getBoundsD();
+                    // WTF Warum nicht:
+                    shapeRenderer.circle(boundsD.x, boundsD.y, boundsD.radius, 32);
                     // System.out.println("Objekt: " + obj.getClass().getSimpleName() +        ", ist Detectable: " + (obj instanceof Detectable));
                 }
-                Rectangle boundsH = obj.getBoundsH();
+
                 shapeRenderer.setColor(new Color(1,0,0,0.5f));
+                Rectangle boundsH = obj.getBoundsH();
                 shapeRenderer.rect(boundsH.x, boundsH.y, boundsH.getWidth(), boundsH.getHeight());
             }
             shapeRenderer.end();

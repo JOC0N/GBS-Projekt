@@ -7,4 +7,5 @@ public interface Detectable {
     public void setDetectionRadius(float detectionRadius);
     public void setBoundsD (float centerPointX, float centerPointY, float detectionRadius);
     public Circle getBoundsD();
+    public void updateBoundsD();
 }
