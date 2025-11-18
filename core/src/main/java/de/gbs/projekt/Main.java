@@ -1,6 +1,5 @@
 package de.gbs.projekt;
 
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import de.gbs.projekt.Handlers.DrawHandler;
