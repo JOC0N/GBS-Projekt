@@ -31,6 +31,7 @@ public class DrawHandler {
     public DrawHandler() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
+        camera.zoom = 1;
         viewport = new FitViewport(16, 9, camera);
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
@@ -41,6 +42,7 @@ public class DrawHandler {
         Player player = objectManager.getPlayer();
         if(player != null) {
             camera.position.set(player.getCenterPointX(), player.getCenterPointY(), 0);
+
             camera.update();
         }
         batch.setProjectionMatrix(viewport.getCamera().combined);
@@ -70,7 +72,9 @@ public class DrawHandler {
     public void debugSprites(Player player) {
         if(showSpeed) {
             assert player != null;
-            font.draw(batch, "Vel: " + Float.toString(player.getVelocityX()) + " " + Float.toString(player.getVelocityY()), player.getX(), player.getY());
+
+            font.draw(batch, " " + Math.round(player.getX()), player.getX(), player.getY());
+            font.draw(batch, " " + Math.round(player.getY()), player.getX(), player.getY()-1);
         }
     }
 
