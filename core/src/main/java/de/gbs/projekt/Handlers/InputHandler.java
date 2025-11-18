@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class InputHandler {
     private LogicHandler logicHandler;
     private Player player;
-    private HashMap<String,Boolean> keys;
+    private HashMap<String, Boolean> keys;
     private boolean[] toggle;
 
     public void setLogicHandler(LogicHandler logicHandler) {
@@ -35,9 +35,10 @@ public class InputHandler {
         keys.put("Interact", Gdx.input.isKeyPressed(Input.Keys.SPACE));
         keys.put("Sprint", Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT));
 
-        if (player == null) return;
+        if(player == null)
+            return;
 
-        if (keys.get("Quit")) {
+        if(keys.get("Quit")) {
             Gdx.app.exit();
         }
 
@@ -50,16 +51,16 @@ public class InputHandler {
         player.setVelocityX(0);
         player.setVelocityY(0);
 
-        if (keys.get("Left")) {
+        if(keys.get("Left")) {
             player.setVelocityX(-1);
         }
-        if (keys.get("Right")) {
+        if(keys.get("Right")) {
             player.setVelocityX(1);
         }
-        if (keys.get("Up")) {
+        if(keys.get("Up")) {
             player.setVelocityY(1);
         }
-        if (keys.get("Down")) {
+        if(keys.get("Down")) {
             player.setVelocityY(-1);
         }
 

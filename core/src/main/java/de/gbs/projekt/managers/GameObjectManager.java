@@ -24,21 +24,21 @@ public class GameObjectManager {
 
     // Aktualisiere alle Objekte
     public void update(float delta) {
-        for (GameObject obj : objects) {
+        for(GameObject obj : objects) {
             obj.update(delta);
         }
     }
 
     // Zeichne alle Objekte
     public void render(SpriteBatch batch) {
-        for (GameObject obj : objects) {
+        for(GameObject obj : objects) {
             obj.render(batch);
         }
     }
 
     // Gib alle Ressourcen frei
     public void dispose() {
-        for (GameObject obj : objects) {
+        for(GameObject obj : objects) {
             obj.dispose();
         }
         objects.clear();
@@ -55,8 +55,8 @@ public class GameObjectManager {
     }
 
     public Player getPlayer() {
-        for (GameObject obj : objects) {
-            if (obj instanceof Player) {
+        for(GameObject obj : objects) {
+            if(obj instanceof Player) {
                 return (Player) obj;
             }
         }

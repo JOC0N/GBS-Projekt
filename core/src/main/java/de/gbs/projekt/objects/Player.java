@@ -19,7 +19,7 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     private Circle boundsI;
 
     public Player(float x, float y, float detectionRadius, float interactionRadius) {
-        super(x, y, 1, 1,0.5f,1);
+        super(x, y, 1, 1, 0.5f, 1);
         texture = new Texture("textures/player.png");
         speed = 5;
         sprintSpeed = 10;
@@ -54,12 +54,12 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     public void move(float delta) {
         float velocityLength = (float) Math.sqrt(getVelocityX() * getVelocityX() + getVelocityY() * getVelocityY());
         if (velocityLength > 0) {
-            if(this.getSprint()){
-                this.setX(getX() + getVelocityX()/velocityLength * getSprintSpeed() * delta);
-                this.setY(getY() + getVelocityY()/velocityLength * getSprintSpeed() * delta);
-            }else {
-                this.setX(getX() + getVelocityX()/velocityLength * getSpeed() * delta);
-                this.setY(getY() + getVelocityY()/velocityLength * getSpeed() * delta);
+            if (this.getSprint()) {
+                this.setX(getX() + getVelocityX() / velocityLength * getSprintSpeed() * delta);
+                this.setY(getY() + getVelocityY() / velocityLength * getSprintSpeed() * delta);
+            } else {
+                this.setX(getX() + getVelocityX() / velocityLength * getSpeed() * delta);
+                this.setY(getY() + getVelocityY() / velocityLength * getSpeed() * delta);
             }
 
         }
@@ -128,7 +128,7 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
 
     @Override
     public void setBoundsD(float centerPointX, float centerPointY, float detectionRadius) {
-            boundsD.set(getCenterPointX(), getCenterPointY(), getDetectionRadius());
+        boundsD.set(getCenterPointX(), getCenterPointY(), getDetectionRadius());
     }
 
     @Override

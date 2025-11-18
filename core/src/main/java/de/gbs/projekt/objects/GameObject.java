@@ -25,8 +25,8 @@ public abstract class GameObject {
         this.width = width;
         this.height = height;
 
-        this.centerPointX =x + this.width/2;
-        this.centerPointY =y + this.height/2;
+        this.centerPointX = x + this.width / 2;
+        this.centerPointY = y + this.height / 2;
 
         this.hitboxWidth = hitboxWidth;
         this.hitboxHeight = hitboxHeight;

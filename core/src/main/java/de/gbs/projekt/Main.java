@@ -2,10 +2,7 @@ package de.gbs.projekt;
 
 
 import com.badlogic.gdx.ApplicationAdapter;
-
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
-
 import de.gbs.projekt.Handlers.DrawHandler;
 import de.gbs.projekt.Handlers.InputHandler;
 import de.gbs.projekt.Handlers.LogicHandler;
@@ -36,7 +33,6 @@ public class Main extends ApplicationAdapter {
         logicHandler.setObjectManager(objectManager);
 
 
-
         //for now first game object must be a player
         Player player = new Player(10, 1, 4, 1.5f);
         objectManager.addObject(player);
@@ -45,7 +41,7 @@ public class Main extends ApplicationAdapter {
         Player player2 = new Player(1, 1, 4, 1.5f);
         objectManager.addObject(player2);
 
-        Dummy dummy0 = new Dummy(-4,-4);
+        Dummy dummy0 = new Dummy(-4, -4);
         objectManager.addObject(dummy0);
 
     }
