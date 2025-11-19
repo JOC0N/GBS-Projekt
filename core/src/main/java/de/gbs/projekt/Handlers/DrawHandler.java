@@ -27,6 +27,7 @@ public class DrawHandler {
     private FitViewport viewport;
     private ShapeRenderer shapeRenderer;
     private BitmapFont font;
+    private GameObjectManager objectManager;
 
     public DrawHandler() {
         batch = new SpriteBatch();
@@ -38,7 +39,7 @@ public class DrawHandler {
         font.getData().setScale(0.1f);
     }
 
-    public void run(GameObjectManager objectManager) {
+    public void run() {
         Player player = objectManager.getPlayer();
         if(player != null) {
             camera.position.set(player.getCenterPointX(), player.getCenterPointY(), 0);
@@ -108,5 +109,9 @@ public class DrawHandler {
             }
             shapeRenderer.end();
         }
+    }
+
+    public void setObjectManager(GameObjectManager objectManager) {
+        this.objectManager = objectManager;
     }
 }

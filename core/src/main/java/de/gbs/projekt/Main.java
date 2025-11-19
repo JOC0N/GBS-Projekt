@@ -14,6 +14,7 @@ import de.gbs.projekt.objects.Player;
  * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms.
  */
 public class Main extends ApplicationAdapter {
+    public float delta;
     public InputHandler inputHandler;
     public LogicHandler logicHandler;
     public DrawHandler drawHandler;
@@ -31,9 +32,12 @@ public class Main extends ApplicationAdapter {
         inputHandler.setLogicHandler(logicHandler);
         logicHandler.setDrawHandler(drawHandler);
         logicHandler.setObjectManager(objectManager);
+        drawHandler.setObjectManager(objectManager);
 
 
-        //for now first game object must be a player
+        Dummy dummy2 = new Dummy(15,1);
+        objectManager.addObject(dummy2);
+
         Player player = new Player(10, 1, 4, 1.5f);
         objectManager.addObject(player);
         inputHandler.setPlayer(player);
@@ -48,21 +52,13 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
-        ScreenUtils.clear(0.5f, 0.5f, 0.5f, 1);
+        ScreenUtils.clear(0, 0, 0,0);
+        delta = com.badlogic.gdx.Gdx.graphics.getDeltaTime();
 
-        // Input verarbeiten
         inputHandler.run();
-
-        // Objekte aktualisieren
-        objectManager.update(com.badlogic.gdx.Gdx.graphics.getDeltaTime());
-
-        // Logik aktualisieren
+        objectManager.update(delta);
         logicHandler.run();
-
-        // Objekte zeichnen
-        drawHandler.run(objectManager);
-
-
+        drawHandler.run();
     }
 
     @Override
@@ -74,6 +70,5 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         drawHandler.dispose();
         objectManager.dispose();
-
     }
 }
