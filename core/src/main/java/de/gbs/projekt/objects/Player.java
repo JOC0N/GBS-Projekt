@@ -18,6 +18,10 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     private Circle boundsD;
     private Circle boundsI;
 
+    // store last position to allow reverting on collision
+    private float lastX;
+    private float lastY;
+
     public Player(float x, float y, float detectionRadius, float interactionRadius) {
         super(x, y, 1, 1, 0.5f, 1);
         texture = new Texture("textures/player.png");
@@ -28,10 +32,14 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
         this.interactionRadius = interactionRadius;
         this.boundsI = new Circle(this.getCenterPointX(), this.getCenterPointY(), this.getInteractionRadius());
         this.boundsD = new Circle(this.getCenterPointX(), this.getCenterPointY(), this.getDetectionRadius());
+
+        this.lastX = x;
+        this.lastY = y;
     }
 
     @Override
     public void update(float delta) {
+        savePosition();
         this.move(delta);
         this.setBoundsH(); // after move() for sync hitboxes
         this.updateBoundsI();
@@ -128,7 +136,7 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
 
     @Override
     public void setBoundsD(float centerPointX, float centerPointY, float detectionRadius) {
-        boundsD.set(getCenterPointX(), getCenterPointY(), getDetectionRadius());
+        boundsD.set(centerPointX, centerPointY, detectionRadius);
     }
 
     @Override
@@ -138,7 +146,7 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
 
     @Override
     public void updateBoundsD() {
-        boundsI.set(getCenterPointX(), getCenterPointY(), getDetectionRadius());
+        boundsD.set(getCenterPointX(), getCenterPointY(), getDetectionRadius());
     }
 
     @Override
@@ -163,6 +171,17 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
 
     @Override
     public void updateBoundsI() {
-        boundsD.set(getCenterPointX(), getCenterPointY(), getInteractionRadius());
+        boundsI.set(getCenterPointX(), getCenterPointY(), getInteractionRadius());
+    }
+
+    // position saving & revert for simple collision resolution
+    public void savePosition() {
+        this.lastX = this.getX();
+        this.lastY = this.getY();
+    }
+
+    public void revertMovement() {
+        this.setX(this.lastX);
+        this.setY(this.lastY);
     }
 }

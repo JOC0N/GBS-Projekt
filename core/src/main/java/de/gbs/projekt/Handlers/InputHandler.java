@@ -24,13 +24,15 @@ public class InputHandler {
 
     public void run() {
 
+        if(keys == null) keys = new HashMap<>();
+
         keys.put("Debugger", Gdx.input.isKeyPressed(Input.Keys.HOME));
         keys.put("Quit", Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 
-        keys.put("Up", Gdx.input.isKeyPressed(Input.Keys.W));
-        keys.put("Down", Gdx.input.isKeyPressed(Input.Keys.S));
-        keys.put("Left", Gdx.input.isKeyPressed(Input.Keys.A));
-        keys.put("Right", Gdx.input.isKeyPressed(Input.Keys.D));
+        keys.put("Up", Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP));
+        keys.put("Down", Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN));
+        keys.put("Left", Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT));
+        keys.put("Right", Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT));
 
         keys.put("Interact", Gdx.input.isKeyPressed(Input.Keys.SPACE));
         keys.put("Sprint", Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT));

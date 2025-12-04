@@ -10,6 +10,7 @@ public abstract class GameObject {
     protected float velocityX, velocityY;
     protected float width, height;
     protected float hitboxWidth, hitboxHeight;
+    protected boolean solid;
 
     protected Rectangle boundsH;
 
@@ -87,6 +88,7 @@ public abstract class GameObject {
 
     public float getCenterPointX() {
         return centerPointX;
+
     }
 
 }
