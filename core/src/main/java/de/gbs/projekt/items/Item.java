@@ -4,16 +4,17 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.UUID;
 
-public class Item {
+public abstract class Item {
 
     protected String name;
     protected Texture texture;
     protected Rarity rarity;
-    protected UUID uuid;
+    protected int maxStackSize;
 
-    private Item(String name, Texture texture, Rarity rarity) {
+    public Item(String name, Texture texture, Rarity rarity, int maxStackSize) {
         this.name = name;
         this.texture = texture;
         this.rarity = rarity;
+        this.maxStackSize = maxStackSize;
     }
 }

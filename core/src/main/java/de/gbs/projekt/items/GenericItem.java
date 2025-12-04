@@ -1,11 +1,13 @@
 package de.gbs.projekt.items;
 
-public class GenericItem {
-    private final int MAXSTACKSIZE;
+import com.badlogic.gdx.graphics.Texture;
 
-    //für alles wie schlüssel coins, schrott, munition...
+public class GenericItem extends Item {
 
-    public GenericItem(int maxstacksize) {
-        MAXSTACKSIZE = maxstacksize;
+    private int id;
+
+    public GenericItem(String name, Texture texture, Rarity rarity, int maxStackSize) {
+        super(name, texture, rarity, maxStackSize);
+
     }
 }
