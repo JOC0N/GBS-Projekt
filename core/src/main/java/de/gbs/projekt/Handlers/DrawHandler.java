@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.GameObject;
+import de.gbs.projekt.objects.Obstacle;
 import de.gbs.projekt.objects.Player;
 import de.gbs.projekt.objects.components.Detectable;
 import de.gbs.projekt.objects.components.Interactable;
@@ -28,6 +29,7 @@ public class DrawHandler {
     private ShapeRenderer shapeRenderer;
     private BitmapFont font;
     private GameObjectManager objectManager;
+    private Texture floorTexture;
 
     public DrawHandler() {
         batch = new SpriteBatch();
@@ -37,6 +39,7 @@ public class DrawHandler {
         shapeRenderer = new ShapeRenderer();
         font = new BitmapFont();
         font.getData().setScale(0.1f);
+        floorTexture = new Texture("floor.png");
     }
 
     public void run() {
@@ -48,16 +51,33 @@ public class DrawHandler {
         }
         batch.setProjectionMatrix(viewport.getCamera().combined);
         batch.begin();
-        Texture block = new Texture("floor.png");
-        for(int wx = 0; wx < 1010; wx++) {
-            for(int wy = 0; wy < 1010; wy++) {
-                batch.draw(block, wx, wy, 1, 1);
+
+        // determine visible tile range based on camera and viewport
+        float halfWidth = viewport.getWorldWidth() / 2f;
+        float halfHeight = viewport.getWorldHeight() / 2f;
+        float left = camera.position.x - halfWidth - 1;
+        float right = camera.position.x + halfWidth + 1;
+        float bottom = camera.position.y - halfHeight - 1;
+        float top = camera.position.y + halfHeight + 1;
+
+        int startX = (int)Math.floor(left);
+        int endX = (int)Math.ceil(right);
+        int startY = (int)Math.floor(bottom);
+        int endY = (int)Math.ceil(top);
+
+        for(int wx = startX; wx <= endX; wx++) {
+            for(int wy = startY; wy <= endY; wy++) {
+                batch.draw(floorTexture, wx, wy, 1, 1);
             }
         }
 
         objectManager.render(batch);
         debugSprites(player);
         batch.end();
+
+        // Render obstacle collision boxes as filled black rectangles
+        renderObstacles(objectManager);
+
         debugRenderer(objectManager);
     }
 
@@ -68,6 +88,12 @@ public class DrawHandler {
     public void dispose() {
         if(batch != null)
             batch.dispose();
+        if(floorTexture != null)
+            floorTexture.dispose();
+        if(shapeRenderer != null)
+            shapeRenderer.dispose();
+        if(font != null)
+            font.dispose();
     }
 
     public void debugSprites(Player player) {
@@ -79,8 +105,24 @@ public class DrawHandler {
         }
     }
 
+    public void renderObstacles(GameObjectManager objectManager) {
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(new Color(0, 0, 0, 1f)); // Black, fully opaque
+
+        for(GameObject obj : objectManager.getObjects()) {
+            if(obj instanceof Obstacle) {
+                Rectangle boundsH = obj.getBoundsH();
+                shapeRenderer.rect(boundsH.x, boundsH.y, boundsH.getWidth(), boundsH.getHeight());
+            }
+        }
+        shapeRenderer.end();
+    }
+
     public void debugRenderer(GameObjectManager objectManager) {
-        if(showHitbox && showDetectionRadius && showInteractionRadius) {
+        if(showHitbox || showDetectionRadius || showInteractionRadius) {
             Gdx.gl.glEnable(GL20.GL_BLEND);
             Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
             shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);

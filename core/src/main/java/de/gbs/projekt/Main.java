@@ -8,6 +8,7 @@ import de.gbs.projekt.Handlers.LogicHandler;
 import de.gbs.projekt.managers.GameObjectManager;
 import de.gbs.projekt.objects.Dummy;
 import de.gbs.projekt.objects.Player;
+import de.gbs.projekt.objects.Obstacle;
 
 
 /**
@@ -18,6 +19,9 @@ public class Main extends ApplicationAdapter {
     public InputHandler inputHandler;
     public LogicHandler logicHandler;
     public DrawHandler drawHandler;
+
+    private float lastX;
+    private float lastY;
 
     public GameObjectManager objectManager;
 
@@ -47,6 +51,8 @@ public class Main extends ApplicationAdapter {
 
         Dummy dummy0 = new Dummy(-4, -4);
         objectManager.addObject(dummy0);
+
+        objectManager.addObject(new Obstacle(-5, 5, 5, 5));
 
     }
 
