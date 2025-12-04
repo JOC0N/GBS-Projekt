@@ -3,7 +3,6 @@ package de.gbs.projekt.objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Rectangle;
 import de.gbs.projekt.objects.components.Detectable;
 import de.gbs.projekt.objects.components.Interactable;
 import de.gbs.projekt.objects.components.Movable;
@@ -21,6 +20,10 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     // store last position to allow reverting on collision
     private float lastX;
     private float lastY;
+
+    // Health and Mana
+    private int hp = 100;
+    private int mp = 100;
 
     public Player(float x, float y, float detectionRadius, float interactionRadius) {
         super(x, y, 1, 1, 0.5f, 1);
@@ -183,5 +186,34 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     public void revertMovement() {
         this.setX(this.lastX);
         this.setY(this.lastY);
+    }
+
+    // Health / Mana API
+    public int getHP() {
+        return hp;
+    }
+
+    public int getMP() {
+        return mp;
+    }
+
+    public void increaseHP(int amount) {
+        this.hp += amount;
+        if(this.hp > 100) this.hp = 100;
+        if(this.hp < 0) this.hp = 0;
+    }
+
+    public void decreaseHP(int amount) {
+        increaseHP(-amount);
+    }
+
+    public void increaseMP(int amount) {
+        this.mp += amount;
+        if(this.mp > 100) this.mp = 100;
+        if(this.mp < 0) this.mp = 0;
+    }
+
+    public void decreaseMP(int amount) {
+        increaseMP(-amount);
     }
 }

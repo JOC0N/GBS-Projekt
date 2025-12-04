@@ -30,6 +30,8 @@ public class DrawHandler {
     private BitmapFont font;
     private GameObjectManager objectManager;
     private Texture floorTexture;
+    // Camera used for pixel-precise HUD rendering
+    private OrthographicCamera hudCamera;
 
     public DrawHandler() {
         batch = new SpriteBatch();
@@ -40,6 +42,10 @@ public class DrawHandler {
         font = new BitmapFont();
         font.getData().setScale(0.1f);
         floorTexture = new Texture("floor.png");
+
+        // HUD camera initialisation (pixel coordinates)
+        hudCamera = new OrthographicCamera();
+        hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     public void run() {
@@ -79,6 +85,45 @@ public class DrawHandler {
         renderObstacles(objectManager);
 
         debugRenderer(objectManager);
+
+        // Render HUD last so it stays on the topmost layer: health (red) and mana (blue) bars in the top-left of the window (pixel-perfect)
+        if(player != null) {
+            // update hud camera to current window size in case of resize
+            hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            hudCamera.update();
+
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
+            // switch to HUD (pixel) projection
+            shapeRenderer.setProjectionMatrix(hudCamera.combined);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+            // HUD layout in pixels
+            float margin = 10f; // pixels from left/top
+            float maxBarWidth = 150f; // pixels for 100 value
+            float barHeight = 16f; // pixels
+            // top-left in pixel coords (origin bottom-left)
+            float hudStartX = margin;
+            float hudStartY = Gdx.graphics.getHeight() - margin - barHeight; // top bar (HP)
+
+            // background bars (dark grey)
+            shapeRenderer.setColor(new Color(0.15f, 0.15f, 0.15f, 0.9f));
+            shapeRenderer.rect(hudStartX, hudStartY, maxBarWidth, barHeight);
+            shapeRenderer.rect(hudStartX, hudStartY - (barHeight + 6f), maxBarWidth, barHeight); // MP below HP with 6px gap
+
+            // actual bars based on player values
+            float hpFraction = player.getHP() / 100f;
+            float mpFraction = player.getMP() / 100f;
+
+            shapeRenderer.setColor(new Color(1f, 0f, 0f, 1f)); // red
+            shapeRenderer.rect(hudStartX, hudStartY, maxBarWidth * hpFraction, barHeight);
+
+            shapeRenderer.setColor(new Color(0f, 0f, 1f, 1f)); // blue
+            shapeRenderer.rect(hudStartX, hudStartY - (barHeight + 6f), maxBarWidth * mpFraction, barHeight);
+
+            shapeRenderer.end();
+        }
     }
 
     public FitViewport getViewport() {
