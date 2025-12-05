@@ -20,9 +20,6 @@ public class Main extends ApplicationAdapter {
     public LogicHandler logicHandler;
     public DrawHandler drawHandler;
 
-    private float lastX;
-    private float lastY;
-
     public GameObjectManager objectManager;
 
     @Override

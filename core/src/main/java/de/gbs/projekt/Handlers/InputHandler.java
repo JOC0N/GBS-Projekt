@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
 import de.gbs.projekt.objects.Player;
+import de.gbs.projekt.stats.EntityStats;
 
 import java.util.HashMap;
 
@@ -27,6 +28,11 @@ public class InputHandler {
         if(keys == null) keys = new HashMap<>();
 
         keys.put("Debugger", Gdx.input.isKeyPressed(Input.Keys.HOME));
+        keys.put("Debug1", Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_5));
+        keys.put("Debug2", Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_6));
+        keys.put("Debug3", Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8));
+        keys.put("Debug4", Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_9));
+
         keys.put("Quit", Gdx.input.isKeyPressed(Input.Keys.ESCAPE));
 
         keys.put("Up", Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP));
@@ -37,11 +43,6 @@ public class InputHandler {
         keys.put("Interact", Gdx.input.isKeyPressed(Input.Keys.SPACE));
         keys.put("Sprint", Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT));
 
-        // Numpad inputs for HP/MP control (use just-pressed to avoid rapid changes while holding)
-        boolean np9 = Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_9);
-        boolean np8 = Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_8);
-        boolean np6 = Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_6);
-        boolean np5 = Gdx.input.isKeyJustPressed(Input.Keys.NUMPAD_5);
 
         if(player == null)
             return;
@@ -51,10 +52,10 @@ public class InputHandler {
         }
 
         // apply numpad changes
-        if(np9) player.decreaseHP(5); // NUMPAD 9 decreases HP by 5
-        if(np8) player.increaseHP(5); // NUMPAD 8 increases HP by 5
-        if(np6) player.decreaseMP(5); // NUMPAD 6 decreases MP by 5
-        if(np5) player.increaseMP(5); // NUMPAD 5 increases MP by 5
+        if(keys.get("Debug3")) player.changeStat(EntityStats.HEALTH,-50);
+        if(keys.get("Debug4")) player.changeStat(EntityStats.HEALTH, 50);
+        if(keys.get("Debug1")) player.changeStat(EntityStats.MANA,-5);
+        if(keys.get("Debug2")) player.changeStat(EntityStats.MANA, 5);
 
 
         player.setSprint(keys.get("Sprint"));

@@ -6,11 +6,12 @@ import com.badlogic.gdx.math.Circle;
 import de.gbs.projekt.objects.components.Detectable;
 import de.gbs.projekt.objects.components.Interactable;
 import de.gbs.projekt.objects.components.Movable;
+import de.gbs.projekt.objects.components.hasEntityStats;
+import de.gbs.projekt.stats.EntityStats;
 
-public class Player extends GameObject implements Movable, Detectable, Interactable {
+public class Player extends GameObject implements Movable, Detectable, Interactable, hasEntityStats {
     private final Texture texture;
-    private float speed;
-    private float sprintSpeed;
+
     private boolean sprint;
     private float detectionRadius;
     private float interactionRadius;
@@ -21,15 +22,13 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
     private float lastX;
     private float lastY;
 
-    // Health and Mana
-    private int hp = 100;
-    private int mp = 100;
 
     public Player(float x, float y, float detectionRadius, float interactionRadius) {
         super(x, y, 1, 1, 0.5f, 1);
+        setDefaultStats();
         texture = new Texture("textures/player.png");
-        speed = 5;
-        sprintSpeed = 10;
+
+
         sprint = false;
         this.detectionRadius = detectionRadius;
         this.interactionRadius = interactionRadius;
@@ -66,35 +65,19 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
         float velocityLength = (float) Math.sqrt(getVelocityX() * getVelocityX() + getVelocityY() * getVelocityY());
         if (velocityLength > 0) {
             if (this.getSprint()) {
-                this.setX(getX() + getVelocityX() / velocityLength * getSprintSpeed() * delta);
-                this.setY(getY() + getVelocityY() / velocityLength * getSprintSpeed() * delta);
+                this.setX(getX() + getVelocityX() / velocityLength * stats.get(EntityStats.SPRINT.getName()) * delta);
+                this.setY(getY() + getVelocityY() / velocityLength * stats.get(EntityStats.SPRINT.getName()) * delta);
             } else {
-                this.setX(getX() + getVelocityX() / velocityLength * getSpeed() * delta);
-                this.setY(getY() + getVelocityY() / velocityLength * getSpeed() * delta);
+                this.setX(getX() + getVelocityX() / velocityLength * stats.get(EntityStats.SPEED.getName()) * delta);
+                this.setY(getY() + getVelocityY() / velocityLength * stats.get(EntityStats.SPEED.getName()) * delta);
             }
 
         }
     }
 
-    @Override
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
 
-    @Override
-    public float getSpeed() {
-        return speed;
-    }
 
-    @Override
-    public void setSprintSpeed(float sprintSpeed) {
-        this.sprintSpeed = sprintSpeed;
-    }
 
-    @Override
-    public float getSprintSpeed() {
-        return sprintSpeed;
-    }
 
     @Override
     public void setSprint(boolean sprint) {
@@ -188,32 +171,15 @@ public class Player extends GameObject implements Movable, Detectable, Interacta
         this.setY(this.lastY);
     }
 
-    // Health / Mana API
-    public int getHP() {
-        return hp;
-    }
-
-    public int getMP() {
-        return mp;
-    }
-
-    public void increaseHP(int amount) {
-        this.hp += amount;
-        if(this.hp > 100) this.hp = 100;
-        if(this.hp < 0) this.hp = 0;
-    }
-
-    public void decreaseHP(int amount) {
-        increaseHP(-amount);
-    }
-
-    public void increaseMP(int amount) {
-        this.mp += amount;
-        if(this.mp > 100) this.mp = 100;
-        if(this.mp < 0) this.mp = 0;
-    }
-
-    public void decreaseMP(int amount) {
-        increaseMP(-amount);
+    @Override
+    public void setDefaultStats() {
+        stats.put(EntityStats.HEALTH.getName(), EntityStats.HEALTH.getNormal());
+        stats.put(EntityStats.MANA.getName(), EntityStats.MANA.getNormal());
+        stats.put(EntityStats.EXPERIENCE.getName(), EntityStats.EXPERIENCE.getNormal());
+        stats.put(EntityStats.DAMAGE.getName(), EntityStats.DAMAGE.getNormal());
+        stats.put(EntityStats.DEFENSE.getName(), EntityStats.DEFENSE.getNormal());
+        stats.put(EntityStats.REGENERATION.getName(), EntityStats.REGENERATION.getNormal());
+        stats.put(EntityStats.SPEED.getName(), EntityStats.SPEED.getNormal());
+        stats.put(EntityStats.SPRINT.getName(), EntityStats.SPRINT.getNormal());
     }
 }

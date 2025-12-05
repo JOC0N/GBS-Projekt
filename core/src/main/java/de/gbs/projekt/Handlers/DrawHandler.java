@@ -17,6 +17,7 @@ import de.gbs.projekt.objects.Obstacle;
 import de.gbs.projekt.objects.Player;
 import de.gbs.projekt.objects.components.Detectable;
 import de.gbs.projekt.objects.components.Interactable;
+import de.gbs.projekt.stats.EntityStats;
 
 public class DrawHandler {
     public boolean showHitbox;
@@ -113,8 +114,8 @@ public class DrawHandler {
             shapeRenderer.rect(hudStartX, hudStartY - (barHeight + 6f), maxBarWidth, barHeight); // MP below HP with 6px gap
 
             // actual bars based on player values
-            float hpFraction = player.getHP() / 100f;
-            float mpFraction = player.getMP() / 100f;
+            float hpFraction = player.getStat(EntityStats.HEALTH) / 100f;
+            float mpFraction = player.getStat(EntityStats.MANA) / 100f;
 
             shapeRenderer.setColor(new Color(1f, 0f, 0f, 1f)); // red
             shapeRenderer.rect(hudStartX, hudStartY, maxBarWidth * hpFraction, barHeight);
